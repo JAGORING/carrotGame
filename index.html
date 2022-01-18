@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="./main.css">
+  <script src="./main.js" defer></script>
+  <title>Carrot Game</title>
+</head>
+<body>
+  <section class="game-container">
+    <!-- 게임 상단의 플레이 버튼, 남은 시간, 점수 출력 -->
+    <header class="btn-group">
+      <button type="button" class="play-btn material-icons">play_arrow</button>
+      <div class="time">0:0</div>
+      <div class="score">0</div>
+    </header>
+    <!-- 벌레와 당근이 출력될 공간 -->
+    <div class="game-place"></div>
+    <!-- 게임 오버나 정지 버튼을 누를 경우 재시작 창 -->
+  </section>
+  <div class="replay-container display-none">
+    <button type="button" class="replay-btn material-icons">replay</button>
+    <div class="content">Replay<span>❔</span></div>
+  </div>
+</body>
+</html>
