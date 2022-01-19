@@ -56,12 +56,14 @@ body {
   width: 150px;
   padding: .3em 0; 
   font-size: var(--font-size-one);
+  visibility: hidden;
 }
 .btn-group .score {
   background-color: var(--orange);
   width: 50px;
   padding: .3em 0; 
   font-size: var(--font-size-one);
+  visibility: hidden;
 }
 
 .game-place {
