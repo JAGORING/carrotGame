@@ -12,8 +12,8 @@
 * Pause
 * Replay
 <div style="flex">
-<img src="https://user-images.githubusercontent.com/62410160/150343903-ed738433-019c-41f4-b766-3f3e1639d743.png" alt="게임 시작 전" width="300px" />
-<img src="https://user-images.githubusercontent.com/62410160/150344458-1ae93007-1371-4e8f-bfec-f7d738389095.png" alt="멈추고 재시작" width="300px" />
+<img src="https://user-images.githubusercontent.com/62410160/150343903-ed738433-019c-41f4-b766-3f3e1639d743.png" alt="게임 시작 전" width="300px" height="200px"/>
+<img src="https://user-images.githubusercontent.com/62410160/150344458-1ae93007-1371-4e8f-bfec-f7d738389095.png" alt="멈추고 재시작" width="300px" height="200px" />
 </div>
 
 ### 2. Item 클릭
