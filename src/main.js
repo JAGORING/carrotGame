@@ -1,8 +1,10 @@
 'use strict';
+import Popup from "./popup.js";
+
+const popUpBanner = new Popup();
 const playBtn = document.querySelector('.play-btn');
 const gamePlace = document.querySelector('.game-place');
 const placeRect = gamePlace.getBoundingClientRect();
-const replayContainer = document.querySelector('.replay-container');
 const time = document.querySelector('.time');
 const score = document.querySelector('.score');
 
@@ -31,13 +33,10 @@ playBtn.addEventListener('click', () => {
   }
 });
 
-replayContainer.addEventListener('click', (e) => {
-  if(e.target.classList.contains('replay-btn')){
-    hideTimerAndScore();
-    replayContainer.classList.add('display-none');
-    playBtn.style.opacity = 1;
-    gamePlace.innerHTML = '';
-  }
+popUpBanner.setClickListener(() => {
+  hideTimerAndScore();
+  playBtn.style.opacity = 1;
+  gamePlace.innerHTML = '';
 });
 
 gamePlace.addEventListener('click', clickItem); 
@@ -113,13 +112,7 @@ function updateTimerText(count) {
 function stopGameTimer(str) {
   bgm.pause();
   clearInterval(timer);
-  popupContainer(str);
-}
-
-function popupContainer(str) {
-  replayContainer.classList.remove('display-none');
-  const content = replayContainer.querySelector('.content');
-  content.innerText = str;
+  popUpBanner.popupContainer(str);
 }
 
 function initGame() {
@@ -176,5 +169,5 @@ function gameOver(str) {
   bgm.pause();
   clearInterval(timer);
   hidePlayBtn();
-  popupContainer(str);
+  popUpBanner.popupContainer(str);
 }
