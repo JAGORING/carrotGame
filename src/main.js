@@ -1,6 +1,7 @@
 'use strict';
 import Popup from "./popup.js";
 import Field from "./field.js";
+import Sound from "./sound.js";
 
 const playBtn = document.querySelector('.play-btn');
 const time = document.querySelector('.time');
@@ -14,9 +15,7 @@ const GAME_TIME_DURATION = 10;
 const CARROT_COUNT = 10;
 const BUG_COUNT = 10;
 
-const bgm = new Audio('./sound/bg.mp3');
-const effect = new Audio();
-
+const gameSound = new Sound();
 // 당근 클릭 게임
 // play: 게임 진행(아이템 세팅 및 클릭, timer 줄어듦)
 // pause: 게임 멈추고 replayContainer 표시
@@ -40,37 +39,21 @@ gameField.setClickListener(onItemClick);
 
 function onItemClick(type){
   if(type === 'bug') {
-    playSoundEffect('bugClick');
+    gameSound.playEffect('bugClick');
     gameOver('YOU LOST🙄');
   } else if(type === 'carrot') {
-    playSoundEffect('carrotClick');
+    gameSound.playEffect('carrotClick');
     updateScoreText(--carrotCount);
     if(carrotCount === 0) {
-      playSoundEffect('gameWin');
+      gameSound.playEffect('gameWin');
       gameOver('YOU WON🎉');
     }
   } 
 }
 
-function playBgm() {
-  bgm.currentTime = 0;
-  bgm.play();
-}
-
-function playSoundEffect(soundName) {
-  const sound = {
-    'alert': './sound/alert.wav',
-    'bugClick': './sound/bug_pull.mp3',
-    'carrotClick': './sound/carrot_pull.mp3',
-    'gameWin': './sound/game_win.mp3',
-  }
-  effect.src = sound[soundName];
-  effect.play();
-}
-
 function playGame() {
   play = true;
-  playBgm();
+  gameSound.playBgm();
   initGame();
   showPlayBtn();
   showTimerAndScore();
@@ -79,7 +62,7 @@ function playGame() {
 
 function pauseGame() {
   play = false;
-  playSoundEffect('alert');
+  gameSound.playEffect('alert');
   hidePlayBtn();
   stopGameTimer('Replay❔');
 }
@@ -117,7 +100,7 @@ function updateTimerText(count) {
 }
 
 function stopGameTimer(str) {
-  bgm.pause();
+  gameSound.pauseBgm();
   clearInterval(timer);
   popUpBanner.popupContainer(str);
 }
@@ -134,7 +117,7 @@ function updateScoreText(count) {
 
 function gameOver(str) {
   play = false;
-  bgm.pause();
+  gameSound.pauseBgm();
   clearInterval(timer);
   hidePlayBtn();
   popUpBanner.popupContainer(str);
