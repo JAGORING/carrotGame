@@ -40,7 +40,7 @@ export default class Field {
     }
   }
 
-  onClick(e){
+  onClick = (e) => {
     if(e.target.matches('.bug')) {
       this.onItemClick && this.onItemClick('bug');
     } else if(e.target.matches('.carrot')) {
