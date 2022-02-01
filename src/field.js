@@ -1,6 +1,6 @@
 'use strict';
 
-const MAX_IMAGE_SIZE = 80;
+const MAX_IMAGE_SIZE = 85;
 
 export default class Field {
   constructor(CARROT_COUNT, BUG_COUNT) {

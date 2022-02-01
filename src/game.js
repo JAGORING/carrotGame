@@ -2,7 +2,40 @@
 import Field from "./field.js";
 import Sound from "./sound.js";
 
-export default class Game {
+export const Reason = Object.freeze({
+  win: 'win',
+  lose: 'lose',
+  cancel: 'cancel',
+  timeOver: 'timeOver'
+});
+export default class GameBuilder {
+  withGameDuration(gameDuration) {
+    this.gameDuration = gameDuration;
+    return this;
+  }
+  withCarrotCnt(carrotCnt) {
+    this.carrotCnt = carrotCnt;
+    return this;
+  }
+  withBugCnt(bugCnt) {
+    this.bugCnt = bugCnt;
+    return this;
+  }
+  withPopUpBanner(popUpBanner) {
+    this.popUpBanner = popUpBanner;
+    return this;
+  }
+
+  build() {
+    return new Game(
+      this.gameDuration,
+      this.carrotCnt,
+      this.bugCnt,
+      this.popUpBanner
+    );
+  }
+}
+class Game {
   constructor(gameTimeDuration, carrot_cnt, bug_cnt, popUpBanner) {
     this.gameTimeDuration = gameTimeDuration;
     this.carrot_cnt = carrot_cnt;
@@ -33,15 +66,19 @@ export default class Game {
   onItemClick=(type)=>{
     if(type === 'bug') {
       this.gameSound.playEffect('bugClick');
-      this.gameOver('YOU LOST🙄');
+      this.gameOver(Reason.lose);
     } else if(type === 'carrot') {
       this.gameSound.playEffect('carrotClick');
       this.updateScoreText(--this.carrot_cnt);
       if(this.carrot_cnt === 0) {
         this.gameSound.playEffect('gameWin');
-        this.gameOver('YOU WON🎉');
+        this.gameOver(Reason.win);
       }
     } 
+  }
+
+  setGameStopListener(onGameStop) {
+    this.onGameStop = onGameStop;
   }
 
   play() {
@@ -57,7 +94,7 @@ export default class Game {
     this.started = false;
     this.gameSound.playEffect('alert');
     this.hidePlayBtn();
-    this.stopGameTimer('Replay❔');
+    this.stopGameTimer(Reason.cancel);
   }
 
   init() {
@@ -90,7 +127,7 @@ export default class Game {
     this.updateTimerText(count);
     this.timer = setInterval(() => { 
       if(count === 0) {
-        this.gameOver('TIME OVER⏰');
+        this.gameOver(Reason.timeOver);
         this.gameSound.playEffect('alert');
         return;
       }
@@ -98,10 +135,10 @@ export default class Game {
     }, 1000);
   }
 
-  stopGameTimer(str) {
+  stopGameTimer(reason) {
     this.gameSound.pauseBgm();
     clearInterval(this.timer);
-    this.popUpBanner.popupContainer(str);
+    this.onGameStop && this.onGameStop(reason);
   }
 
   updateTimerText(count) {
@@ -110,11 +147,11 @@ export default class Game {
     this.time.innerText = `${minutes}:${secs}`;
   }
 
-  gameOver(str) {
+  gameOver(reason) {
     this.started = false;
     this.gameSound.pauseBgm();
     clearInterval(this.timer);
     this.hidePlayBtn();
-    this.popUpBanner.popupContainer(str);
+    this.onGameStop && this.onGameStop(reason);
   }
 }
