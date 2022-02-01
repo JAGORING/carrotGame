@@ -1,5 +1,5 @@
 'use strict';
-import Field from "./field.js";
+import { Field, ItemType } from "./field.js";
 import Sound from "./sound.js";
 
 export const Reason = Object.freeze({
@@ -64,13 +64,13 @@ class Game {
   }
 
   onItemClick=(type)=>{
-    if(type === 'bug') {
+    if(type === ItemType.bug) {
       this.gameSound.playEffect('bugClick');
       this.gameOver(Reason.lose);
-    } else if(type === 'carrot') {
+    } else if(type === ItemType.carrot) {
       this.gameSound.playEffect('carrotClick');
-      this.updateScoreText(--this.carrot_cnt);
-      if(this.carrot_cnt === 0) {
+      this.updateScoreText(--this.carrotCount);
+      if(this.carrotCount === 0) {
         this.gameSound.playEffect('gameWin');
         this.gameOver(Reason.win);
       }

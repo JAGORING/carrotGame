@@ -2,7 +2,11 @@
 
 const MAX_IMAGE_SIZE = 85;
 
-export default class Field {
+export const ItemType = Object.freeze({
+  carrot: 'carrot',
+  bug: 'bug'
+});
+export class Field {
   constructor(CARROT_COUNT, BUG_COUNT) {
     this.carrotCnt = CARROT_COUNT;
     this.bugCnt = BUG_COUNT;
@@ -42,9 +46,9 @@ export default class Field {
 
   onClick = (e) => {
     if(e.target.matches('.bug')) {
-      this.onItemClick && this.onItemClick('bug');
+      this.onItemClick && this.onItemClick(ItemType.bug);
     } else if(e.target.matches('.carrot')) {
-      this.onItemClick && this.onItemClick('carrot');
+      this.onItemClick && this.onItemClick(ItemType.carrot);
       this.gamePlace.removeChild(e.target);
     } 
   }
