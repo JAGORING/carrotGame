@@ -8,7 +8,7 @@ export const Reason = Object.freeze({
   cancel: 'cancel',
   timeOver: 'timeOver'
 });
-export default class GameBuilder {
+export class GameBuilder {
   withGameDuration(gameDuration) {
     this.gameDuration = gameDuration;
     return this;

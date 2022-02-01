@@ -1,7 +1,6 @@
 'use strict';
 import Popup from "./popup.js";
-import GameBuilder, {Reason} from "./game.js";
-
+import { GameBuilder, Reason} from "./game.js";
 
 // 당근 클릭 게임
 // play: 게임 진행(아이템 세팅 및 클릭, timer 줄어듦)
